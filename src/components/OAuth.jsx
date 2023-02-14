@@ -17,17 +17,15 @@ const OAuth = () => {
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
-        setDoc(docRef, {
+        await setDoc(docRef, {
           name: user.displayName,
           email: user.email,
           timestamp: serverTimestamp(),
         });
-        navigate("/");
-      } else {
-        toast.error("User is already registered with this email id");
       }
+      navigate("/");
     } catch (error) {
-      toast.error("Couldn't authorize with google");
+      toast.error("Couldn't authorize with Google");
     }
   };
 
